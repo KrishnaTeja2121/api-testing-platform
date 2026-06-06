@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# API Testing Platform
 
-## Getting Started
+A lightweight API testing interface built with Next.js, React, TypeScript, and Tailwind CSS.
 
-First, run the development server:
+## Overview
+
+This project provides a browser-based request builder for sending HTTP API calls and inspecting responses. It supports:
+
+- selecting HTTP methods (`GET`, `POST`, `PUT`, `PATCH`, `DELETE`)
+- entering a request URL
+- sending requests from the browser
+- viewing response status, status text, headers, body, and response time
+- basic error handling for failed requests
+
+## Features
+
+- **Request Builder**: choose the HTTP method and target URL
+- **Response Viewer**: display response metadata and format JSON output
+- **Live feedback**: loading state while a request is in progress
+- **Type-safe API models**: `ApiRequest` and `ApiResponse` definitions in TypeScript
+
+## Tech Stack
+
+- Next.js `16.2.7`
+- React `19.2.4`
+- TypeScript `^5`
+- Tailwind CSS `^4`
+- ESLint `^9`
+
+## Installation
+
+1. Clone the repository
+
+```bash
+git clone https://github.com/your-org/api-testing-platform.git
+cd api-testing-platform
+```
+
+2. Install dependencies
+
+```bash
+npm install
+```
+
+## Development
+
+Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000` in your browser to use the app.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Build for Production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm run start
+```
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+- `src/app/page.tsx` — application entry point
+- `src/components/layout/Header.tsx` — page header
+- `src/components/request/RequestBuilder.tsx` — main request form and submit flow
+- `src/components/request/MethodSelector.tsx` — HTTP method selection
+- `src/components/request/UrlInput.tsx` — URL input field
+- `src/components/response/ResponseViewer.tsx` — response display panel
+- `src/services/apiService.ts` — request execution and response parsing
+- `src/types/api.ts` — API request and response types
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Notes
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- The current implementation sends requests from the browser using `fetch`.
+- Response bodies are parsed as JSON and rendered with `JSON.stringify`.
+- The request payload currently includes headers and body fields in the request type, but the browser fetch implementation only sends the URL and method.
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is currently provided without a license. Add a `LICENSE` file if you want to define usage terms.
