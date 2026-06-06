@@ -20,23 +20,39 @@ export default function RequestBuilder() {
   const [response, setResponse] =
     useState(null);
 
-  async function handleSendRequest() {
-    try {
-      const result = await sendRequest({
+  const [loading, setLoading] =
+  useState(false);
+
+  const [error, setError] =
+  useState("");
+
+   
+
+
+async function handleSendRequest() {
+  try {
+    setError("");
+    setLoading(true);
+
+    const result =
+      await sendRequest({
         method,
         url,
         headers: [],
         body: "",
       });
 
-      setResponse(result);
-    } catch (error) {
-      console.error(
-        "Request failed:",
-        error
-      );
-    }
+    setResponse(result);
+  } catch (error) {
+    setError(
+      "Failed to execute request"
+    );
+
+    console.error(error);
+  } finally {
+    setLoading(false);
   }
+}
 
   return (
     <div className="space-y-4">
@@ -53,18 +69,21 @@ export default function RequestBuilder() {
       </div>
 
       <button
-        onClick={handleSendRequest}
-        className="
-          bg-blue-600
-          text-white
-          px-4
-          py-2
-          rounded
-          hover:bg-blue-700
-        "
-      >
-        Send Request
-      </button>
+  onClick={handleSendRequest}
+  disabled={loading}
+  className="
+    bg-blue-600
+    text-white
+    px-4
+    py-2
+    rounded
+    disabled:bg-gray-400
+  "
+>
+  {loading
+    ? "Sending..."
+    : "Send Request"}
+</button>
 
       <ResponseViewer
         response={response}
